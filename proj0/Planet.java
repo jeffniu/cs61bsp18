@@ -25,11 +25,11 @@ public class Planet {
 		mass = p.mass;
 		imgFileName = p.imgFileName;
 	}
-
+/** calculate distance between this and p planet. */
 	public double calcDistance(Planet p) {
 		return Math.sqrt((p.xxPos - this.xxPos)*(p.xxPos - this.xxPos) + (p.yyPos - this.yyPos) * (p.yyPos - this.yyPos));
 	}
-
+/** calculate F = Gm1m2/r2，分母不能为0. */
 	public double calcForceExertedBy(Planet p) {
 		if (equals(p)) {
 			return 0;
@@ -37,7 +37,7 @@ public class Planet {
 			return G * this.mass * p.mass / this.calcDistance(p) / this.calcDistance(p);
 		}
 	}
-
+/** calculate Fx, 分母不能为0.  */
 	public double calcForceExertedByX(Planet p) {
 		if (equals(p)) {
 			return 0;
@@ -45,7 +45,7 @@ public class Planet {
 			return this.calcForceExertedBy(p) / this.calcDistance(p) * (p.xxPos - this.xxPos);
 		}
 	}
-
+/** calculate Fy, 分母不能为0.  */
 	public double calcForceExertedByY(Planet p) {
 		if (equals(p)) {
 			return 0;
@@ -53,7 +53,7 @@ public class Planet {
 			return this.calcForceExertedBy(p) / this.calcDistance(p) * (p.yyPos - this. yyPos);
 		}		
 	}
-
+/** calculate Fx[] */
 	public double calcNetForceExertedByX(Planet[] a) {
 		double sum = 0;
 		for (int i = 0; i < a.length; i ++ ) {
@@ -61,13 +61,22 @@ public class Planet {
 		}
 		return sum;
 	}
-
+/** calculate Fy[] */
 	public double calcNetForceExertedByY(Planet[] b) {
 		double sum = 0;
 		for (int i = 0; i < b.length; i ++ ) {
 			sum = sum + this.calcForceExertedByY(b[i]);
 		}
 		return sum;
+	}
+
+/** update the planet’s position and 
+velocity instance variables (this method does not need to return anything). */
+	public void update(double dt, double fx, double fy) {
+		xxVel += dt * fx / mass;
+		yyVel += dt * fy / mass;
+		xxPos += dt * xxVel;
+		yyPos += dt * yyVel;
 	}
 
 
