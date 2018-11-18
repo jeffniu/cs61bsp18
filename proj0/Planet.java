@@ -64,7 +64,7 @@ public class Planet {
 /** calculate Fy[] */
 	public double calcNetForceExertedByY(Planet[] b) {
 		double sum = 0;
-		for (int i = 0; i < b.length; i ++ ) {
+		for (int i = 0; i < b.length; i++ ) {
 			sum = sum + this.calcForceExertedByY(b[i]);
 		}
 		return sum;
@@ -78,6 +78,14 @@ velocity instance variables (this method does not need to return anything). */
 		xxPos += dt * xxVel;
 		yyPos += dt * yyVel;
 	}
+/** draw the Planet’s image at the Planet’s position. 
+*The draw method should return nothing and take in no parameters. */
+    public void draw() {
+    	StdDraw.clear();
+    	StdDraw.picture(xxPos, yyPos, imgFileName);
+    	StdDraw.show();
+    }
+
 
 
 }
